@@ -141,16 +141,16 @@ module.exports = {
   // 4. Check that all the products belong to the same restaurant
   create: [
     // 1. Check that restaurantId is present in the body and corresponds to an existing restaurant
-    check('restaurantId').costum(checkRestaurantExists),
+    check('restaurantId').custom(checkRestaurantExists),
     check('restaurantId').exists().isInt({ min: 1 }).toInt(),
     // 2. Check that products is a non-empty array composed of objects with productId and quantity greater than 0
     check('products').exists().isArray({ min: 1 }), // Compruebo que es una array con más de un componente
     check('products.*.producId').exists().isInt({ min: 1 }).toInt(),
     check('products.*.quantity').isInt({ min: 1 }).toInt(),
     // 3. Check that products are available
-    check('products').costum(checkProductExists),
+    check('products').custom(checkProductExists),
     // 4. Check that all the products belong to the same restaurant
-    check('products').costum(checkSameRestaurant),
+    check('products').custom(checkSameRestaurant),
     // 5. En el test va a dar error por añadir un productId invalido pero también la dirección por lo que tengo que añadir
     check('address').exists().isString().isLength({ min: 1, max: 255 }).trim()
 
@@ -169,9 +169,9 @@ module.exports = {
     check('products.*.producId').exists().isInt({ min: 1 }).toInt(),
     check('products.*.quantity').isInt({ min: 1 }).toInt(),
     // 3. Check that products are available
-    check('products').costum(checkProductExists),
+    check('products').custom(checkProductExists),
     // 4. Check that all the products belong to the same restaurant of the originally saved order that is being edited.
-    check('products').costum(checkSameRestaurant),
+    check('products').custom(checkSameRestaurant),
     // 5. Check that the order is in the 'pending' state.
     // No hace falta volver a añadir el isPending porque ya esta en las routes
     // 6. En el test va a dar error por modificar un productId invalido e intentar cambiar la dirección
